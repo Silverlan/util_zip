@@ -47,6 +47,10 @@ runs:
         cmake_var: 'DEPENDENCY_LIBZIP_INCLUDE'
         cmake_var_lib: 'DEPENDENCY_LIBZIP_LIBRARY'
         include_dir: 'lib'
+    - name: Copy zipconf.h
+      shell: bash
+      run: |
+        cp -n ./build/third_party_libs/libzip/zipconf.h ./third_party_libs/libzip/zipconf.h
 
     - uses: Silverlan/common_actions/build_cmake@main
       name: CMake Build
