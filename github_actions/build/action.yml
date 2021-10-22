@@ -50,7 +50,7 @@ runs:
     - name: Copy zipconf.h
       shell: bash
       run: |
-        cp -n ./build/third_party_libs/libzip/zipconf.h ./third_party_libs/libzip/zipconf.h
+        cp -n ./build/third_party_libs/libzip/zipconf.h ./third_party_libs/libzip/lib/zipconf.h
 
     - uses: Silverlan/common_actions/build_cmake@main
       name: CMake Build
