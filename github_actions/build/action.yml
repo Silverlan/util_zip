@@ -33,6 +33,17 @@ runs:
 
     - name: Download common external libs
       uses: Silverlan/common_actions/get_common_external_libs@main
+      
+    - name: Build submodule - libzip
+      uses: Silverlan/common_actions/build_submodule@main
+      with:
+        repo: 'https://github.com/nih-at/libzip.git'
+        repo_name: 'lipzip'
+        repo_branch: 'master'
+        build_target: lib/zip
+        cmake_var: 'DEPENDENCY_LIBZIP_INCLUDE'
+        cmake_var_lib: 'DEPENDENCY_LIBZIP_LIBRARY'
+        include_dir: 'lib'
 
     - uses: Silverlan/common_actions/build_cmake@main
       name: CMake Build
