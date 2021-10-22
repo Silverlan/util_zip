@@ -34,7 +34,7 @@ runs:
     - name: Download common external libs
       uses: Silverlan/common_actions/get_common_external_libs@main
       
-    - name: Build zlib
+    - name: Build submodule - zlib
       uses: Silverlan/common_actions/build_zlib@main
       
     - name: Build submodule - libzip
