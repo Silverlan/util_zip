@@ -38,7 +38,7 @@ runs:
       uses: Silverlan/common_actions/build_submodule@main
       with:
         repo: 'https://github.com/nih-at/libzip.git'
-        repo_name: 'lipzip'
+        repo_name: 'libzip'
         repo_branch: 'master'
         build_target: lib/zip
         cmake_var: 'DEPENDENCY_LIBZIP_INCLUDE'
