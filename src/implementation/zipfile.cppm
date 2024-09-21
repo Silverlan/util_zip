@@ -10,7 +10,7 @@ module;
 #include <vector>
 #include <functional>
 
-export module util_zip.zipfile;
+export module util_zip:zipfile;
 
 #undef ReplaceFile
 

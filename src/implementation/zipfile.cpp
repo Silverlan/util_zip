@@ -24,7 +24,6 @@ module;
 
 module util_zip;
 
-#pragma optimize("", off)
 namespace uzip {
 	class BaseZipFile {
 	  public:

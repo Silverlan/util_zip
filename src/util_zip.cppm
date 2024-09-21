@@ -5,4 +5,4 @@
 module;
 
 export module util_zip;
-export import util_zip.zipfile;
+export import :zipfile;
