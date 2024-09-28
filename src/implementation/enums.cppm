@@ -4,8 +4,10 @@
 
 module;
 
-export module util_zip;
-export import :zipfile;
-import :zip_libzip;
-import :zip_7zpp;
-import :zip_bit7z;
+#include <cinttypes>
+
+export module util_zip:enums;
+
+export namespace uzip {
+	enum class OpenMode : uint8_t { Read = 0u, Write };
+};

@@ -12,13 +12,14 @@ module;
 
 export module util_zip:zipfile;
 
+import :enums;
+
 #undef ReplaceFile
 
 export namespace uzip {
 	class BaseZipFile;
 	class ZIPFile {
 	  public:
-		enum class OpenMode : uint8_t { Read = 0u, Write };
 		static std::unique_ptr<ZIPFile> Open(const std::string &filePath, OpenMode openFlags = OpenMode::Read);
 		static std::unique_ptr<ZIPFile> Open(const void *zipData, size_t size);
 		~ZIPFile();
