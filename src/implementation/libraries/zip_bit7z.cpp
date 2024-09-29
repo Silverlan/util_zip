@@ -8,6 +8,7 @@ module;
 #include <string>
 #include <iostream>
 #include <sharedutils/util.h>
+#include <sharedutils/BS_thread_pool.hpp>
 #include <sharedutils/util_path.hpp>
 #include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
@@ -62,7 +63,8 @@ struct membuf : std::streambuf {
 };
 void uzip::Bit7zFile::Flush()
 {
-	m_thread.stop();
+	m_cancelled = true;
+	m_thread.purge();
 
 	if(writer) {
 		try {
@@ -119,13 +121,13 @@ bool uzip::Bit7zFile::ExtractFiles(const std::string &dirName, std::string &outE
 				auto complete = (fprogress >= 1.f);
 				if(m_progressCallback)
 					m_progressCallback(fprogress);
-				return fprogressCallback(fprogress, complete);
+				return fprogressCallback(fprogress, complete) && !m_cancelled;
 			});
 		}
 		reader->extract(dirName);
 	};
 	if(fprogressCallback)
-		m_thread.push([extract = std::move(extract)](int id) { extract(); });
+		m_thread.submit_task(extract);
 	else
 		extract();
 	return true;

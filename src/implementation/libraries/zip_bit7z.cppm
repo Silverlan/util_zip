@@ -6,7 +6,8 @@ module;
 
 #include <memory>
 #include <string>
-#include <sharedutils/ctpl_stl.h>
+#include <atomic>
+#include <sharedutils/BS_thread_pool.hpp>
 #include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
 
@@ -36,6 +37,7 @@ export namespace uzip {
 		std::unique_ptr<bit7z::BitArchiveWriter> writer;
 
 		std::function<void(double)> m_progressCallback;
-		ctpl::thread_pool m_thread;
+		BS::thread_pool m_thread;
+		std::atomic<bool> m_cancelled = false;
 	};
 };

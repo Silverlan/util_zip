@@ -6,6 +6,8 @@ module;
 
 #include <string>
 #include <memory>
+#include <condition_variable>
+#include <mutex>
 #include <7zpp/7zpp.h>
 #include <sharedutils/util_string.h>
 
