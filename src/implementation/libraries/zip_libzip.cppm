@@ -6,6 +6,8 @@ module;
 
 #include <memory>
 #include <string>
+#include <vector>
+#include <functional>
 #include <zip.h>
 
 export module util_zip:zip_libzip;

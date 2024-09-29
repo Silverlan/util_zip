@@ -15,7 +15,9 @@ module;
 module util_zip;
 
 import :zip_libzip;
+#ifdef _WIN32
 import :zip_7zpp;
+#endif
 import :zip_bit7z;
 
 /////////////
