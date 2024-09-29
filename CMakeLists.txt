@@ -19,7 +19,7 @@ if(WIN32)
 	set(ZIP_READ_LIB_DEFAULT "bit7z")
 	set(ZIP_WRITE_LIB_DEFAULT "libzip")
 else()
-	set(ZIP_READ_LIB_DEFAULT "libzip")
+	set(ZIP_READ_LIB_DEFAULT "bit7z")
 	set(ZIP_WRITE_LIB_DEFAULT "libzip")
 endif()
 
