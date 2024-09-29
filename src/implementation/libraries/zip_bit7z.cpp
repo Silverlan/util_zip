@@ -80,8 +80,11 @@ bool uzip::Bit7zFile::GetFileList(std::vector<std::string> &outFileList) const
 	if(!reader)
 		return false;
 	outFileList.reserve(reader->itemsCount());
-	for(auto &item : *reader)
-		outFileList.push_back(item.name());
+	for(auto &item : *reader) {
+		if(item.isDir())
+			continue;
+		outFileList.push_back(item.path());
+	}
 	return true;
 }
 
