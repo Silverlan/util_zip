@@ -121,10 +121,16 @@ bool uzip::Bit7zFile::ExtractFiles(const std::string &dirName, std::string &outE
 				auto complete = (fprogress >= 1.f);
 				if(m_progressCallback)
 					m_progressCallback(fprogress);
-				return fprogressCallback(fprogress, complete) && !m_cancelled;
+				return !fprogressCallback(fprogress, complete) && !m_cancelled;
 			});
 		}
-		reader->extract(dirName);
+		try {
+			reader->extract(dirName);
+		}
+		catch(const bit7z::BitException &e) {
+			// TODO: Handle error
+			return;
+		}
 	};
 	if(fprogressCallback)
 		m_thread.submit_task(extract);
