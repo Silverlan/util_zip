@@ -10,6 +10,7 @@ module;
 #include <sharedutils/util.h>
 #include <sharedutils/BS_thread_pool.hpp>
 #include <sharedutils/util_path.hpp>
+#include <sharedutils/util_string.h>
 #include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
 
@@ -28,6 +29,8 @@ static std::string get_7z_binary_path()
 	return path.GetString();
 }
 
+static std::string get_normalized_path(const std::string &internalPath) { return util::Path::CreateFile(internalPath).GetString(); }
+
 uzip::Bit7zFile::Bit7zFile() : lib {get_7z_binary_path()}, m_thread {1} {}
 std::unique_ptr<uzip::BaseZipFile> uzip::Bit7zFile::Open(const std::string &fileName, OpenMode openMode)
 {
@@ -37,6 +40,15 @@ std::unique_ptr<uzip::BaseZipFile> uzip::Bit7zFile::Open(const std::string &file
 		case OpenMode::Read:
 			{
 				r->reader = std::make_unique<bit7z::BitArchiveReader>(r->lib, fileName);
+
+				r->m_normalizedNameToInternal.reserve(r->reader->itemsCount());
+				for(auto &item : *r->reader) {
+					if(item.isDir())
+						continue;
+					auto originalPath = item.path();
+					auto newPath = get_normalized_path(originalPath);
+					r->m_normalizedNameToInternal[newPath] = originalPath;
+				}
 				break;
 			}
 		case OpenMode::Write:
@@ -85,7 +97,8 @@ bool uzip::Bit7zFile::GetFileList(std::vector<std::string> &outFileList) const
 	for(auto &item : *reader) {
 		if(item.isDir())
 			continue;
-		outFileList.push_back(item.path());
+		auto path = get_normalized_path(item.path());
+		outFileList.push_back(path);
 	}
 	return true;
 }
@@ -131,6 +144,17 @@ bool uzip::Bit7zFile::ExtractFiles(const std::string &dirName, std::string &outE
 			// TODO: Handle error
 			return;
 		}
+		for(auto &item : *reader) {
+			if(item.isDir())
+				continue;
+			auto originalPath = item.path();
+			auto newPath = get_normalized_path(originalPath);
+			if(originalPath == newPath)
+				continue;
+			auto src = dirName + "/" + originalPath;
+			auto dst = dirName + "/" + newPath;
+			rename(src.c_str(), dst.c_str());
+		}
 	};
 	if(fprogressCallback)
 		m_thread.submit_task(extract);
@@ -144,7 +168,12 @@ bool uzip::Bit7zFile::ReadFile(const std::string &fileName, std::vector<uint8_t>
 		outErr = "Zip-archive has not been opened for reading!";
 		return false;
 	}
-	auto it = reader->find(fileName);
+	auto itInternal = m_normalizedNameToInternal.find(util::Path::CreateFile(fileName).GetString());
+	if(itInternal == m_normalizedNameToInternal.end()) {
+		outErr = "File not found!";
+		return false;
+	}
+	auto it = reader->find(itInternal->second);
 	if(it == reader->end()) {
 		outErr = "File not found!";
 		return false;

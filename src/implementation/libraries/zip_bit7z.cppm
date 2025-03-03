@@ -7,6 +7,7 @@ module;
 #include <memory>
 #include <string>
 #include <atomic>
+#include <unordered_map>
 #include <sharedutils/BS_thread_pool.hpp>
 #include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
@@ -39,5 +40,6 @@ export namespace uzip {
 		std::function<void(double)> m_progressCallback;
 		BS::thread_pool m_thread;
 		std::atomic<bool> m_cancelled = false;
+		std::unordered_map<std::string, std::string> m_normalizedNameToInternal;
 	};
 };
