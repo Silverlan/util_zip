@@ -8,9 +8,12 @@ pr_add_dependency(${PROJ_NAME} sharedutils TARGET PUBLIC)
 if(WIN32)
     pr_add_dependency(${PROJ_NAME} 7zpp TARGET)
 endif()
-pr_add_dependency(${PROJ_NAME} zip TARGET)
 
+pr_add_external_dependency(${PROJ_NAME} zlib LIBRARY PRIVATE)
+pr_add_external_dependency(${PROJ_NAME} libzip LIBRARY PRIVATE)
+pr_add_external_dependency(${PROJ_NAME} libzip_build HEADER_ONLY PRIVATE)
 pr_add_external_dependency(${PROJ_NAME} bit7z LIBRARY PUBLIC)
+
 pr_add_compile_definitions(${PROJ_NAME} -DBIT7Z_AUTO_FORMAT PRIVATE)
 
 if(WIN32)
