@@ -138,7 +138,7 @@ bool uzip::Bit7zFile::ExtractFiles(const std::string &dirName, std::string &outE
 			});
 		}
 		try {
-			reader->extract(dirName);
+			reader->extractTo(dirName);
 		}
 		catch(const bit7z::BitException &e) {
 			// TODO: Handle error
@@ -180,6 +180,6 @@ bool uzip::Bit7zFile::ReadFile(const std::string &fileName, std::vector<uint8_t>
 	}
 	auto &item = *it;
 	outData.resize(item.size());
-	reader->extract(outData.data(), outData.size(), item.index());
+	reader->extractTo(outData.data(), outData.size(), item.index());
 	return true;
 }

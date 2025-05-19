@@ -20,7 +20,7 @@ void uzip::LibZipFile::SetPackProgressCallback(const std::function<void(double)>
 {
 	auto *cpy = new std::function<void(double)> {progressCallback};
 	zip_register_progress_callback_with_state(
-	  m_zip, 0.005, +[](zip_t *zip, double progress, void *ptr) { (*static_cast<std::function<void(double)> *>(ptr))(progress); }, +[](void *ptr) { delete ptr; }, cpy);
+	  m_zip, 0.005, +[](zip_t *zip, double progress, void *ptr) { (*static_cast<std::function<void(double)> *>(ptr))(progress); }, +[](void *ptr) { delete static_cast<std::function<void(double)> *>(ptr); }, cpy);
 }
 
 std::unique_ptr<uzip::BaseZipFile> uzip::LibZipFile::Open(const std::string &fileName, OpenMode openMode)
