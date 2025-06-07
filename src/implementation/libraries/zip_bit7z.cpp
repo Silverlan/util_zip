@@ -11,6 +11,7 @@ module;
 #include <sharedutils/BS_thread_pool.hpp>
 #include <sharedutils/util_path.hpp>
 #include <sharedutils/util_string.h>
+#include <fsys/filesystem.h>
 #include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
 
@@ -20,13 +21,14 @@ import :zip_bit7z;
 
 static std::string get_7z_binary_path()
 {
-	auto path = util::Path::CreatePath(util::get_program_path());
+	std::string path;
 #ifdef _WIN32
-	path += "bin/7z.dll";
+	path = "bin/7z.dll";
 #else
-	path += "lib/7z.so";
+	path = "lib/7z.so";
 #endif
-	return path.GetString();
+	filemanager::find_absolute_path(path, path);
+	return path;
 }
 
 static std::string get_normalized_path(const std::string &internalPath) { return util::Path::CreateFile(internalPath).GetString(); }
