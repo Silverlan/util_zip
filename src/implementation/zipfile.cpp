@@ -22,14 +22,14 @@ import :zip_bit7z;
 
 /////////////
 
-std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const void *zipData, size_t size)
+std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const void *zipData, size_t size, std::string &outErr)
 {
 	auto baseZip = LibZipFile::Open(zipData, size);
 	if(!baseZip)
 		return nullptr;
 	return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));
 }
-std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const std::string &filePath, OpenMode openMode)
+std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const std::string &filePath, std::string &outErr, OpenMode openMode)
 {
 	switch(openMode) {
 	case OpenMode::Read:
@@ -45,7 +45,7 @@ std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const std::string &filePath, 
 				return {};
 			return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));
 #elif ZIP_READ_LIB == ZIP_LIB_BIT7Z
-			auto baseZip = Bit7zFile::Open(filePath, openMode);
+			auto baseZip = Bit7zFile::Open(filePath, outErr, openMode);
 			if(!baseZip)
 				return {};
 			return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));
@@ -65,7 +65,7 @@ std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const std::string &filePath, 
 				return {};
 			return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));
 #elif ZIP_WRITE_LIB == ZIP_LIB_BIT7Z
-			auto baseZip = Bit7zFile::Open(filePath, openMode);
+			auto baseZip = Bit7zFile::Open(filePath, outErr, openMode);
 			if(!baseZip)
 				return {};
 			return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));

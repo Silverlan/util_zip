@@ -20,8 +20,8 @@ export namespace uzip {
 	class BaseZipFile;
 	class ZIPFile {
 	  public:
-		static std::unique_ptr<ZIPFile> Open(const std::string &filePath, OpenMode openFlags = OpenMode::Read);
-		static std::unique_ptr<ZIPFile> Open(const void *zipData, size_t size);
+		static std::unique_ptr<ZIPFile> Open(const std::string &filePath, std::string &outErr, OpenMode openFlags = OpenMode::Read);
+		static std::unique_ptr<ZIPFile> Open(const void *zipData, size_t size, std::string &outErr);
 		~ZIPFile();
 		bool AddFile(const std::string &fileName, const void *data, uint64_t size, bool bOverwrite = true);
 		bool AddFile(const std::string &fileName, const std::string &data, bool bOverwrite = true);

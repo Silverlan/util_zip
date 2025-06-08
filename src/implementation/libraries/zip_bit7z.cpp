@@ -34,7 +34,7 @@ static std::string get_7z_binary_path()
 static std::string get_normalized_path(const std::string &internalPath) { return util::Path::CreateFile(internalPath).GetString(); }
 
 uzip::Bit7zFile::Bit7zFile() : lib {get_7z_binary_path()}, m_thread {1} {}
-std::unique_ptr<uzip::BaseZipFile> uzip::Bit7zFile::Open(const std::string &fileName, OpenMode openMode)
+std::unique_ptr<uzip::BaseZipFile> uzip::Bit7zFile::Open(const std::string &fileName, std::string &outErr, OpenMode openMode)
 {
 	try {
 		auto r = std::unique_ptr<Bit7zFile> {new Bit7zFile {}};
@@ -63,6 +63,7 @@ std::unique_ptr<uzip::BaseZipFile> uzip::Bit7zFile::Open(const std::string &file
 		return r;
 	}
 	catch(const bit7z::BitException &e) {
+		outErr = e.what();
 		return {};
 	}
 	return {};

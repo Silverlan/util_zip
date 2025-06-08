@@ -20,7 +20,7 @@ import :enums;
 export namespace uzip {
 	class Bit7zFile : public BaseZipFile {
 	  public:
-		static std::unique_ptr<BaseZipFile> Open(const std::string &fileName, OpenMode openMode);
+		static std::unique_ptr<BaseZipFile> Open(const std::string &fileName, std::string &outErr, OpenMode openMode);
 
 		virtual ~Bit7zFile() override;
 		virtual bool GetFileList(std::vector<std::string> &outFileList) const override;
