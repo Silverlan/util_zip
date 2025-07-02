@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: (c) 2024 Silverlan <opensource@pragma-engine.com>
+// SPDX-License-Identifier: MIT
+
 #ifndef _HAD_ZIPCONF_H
 #define _HAD_ZIPCONF_H
 
