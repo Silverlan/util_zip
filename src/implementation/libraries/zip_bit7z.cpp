@@ -6,17 +6,15 @@ module;
 #include <memory>
 #include <string>
 #include <iostream>
-#include <sharedutils/util.h>
 #include <sharedutils/BS_thread_pool.hpp>
-#include <sharedutils/util_path.hpp>
-#include <sharedutils/util_string.h>
-#include <fsys/filesystem.h>
-#include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
 
 module util_zip;
 
 import :zip_bit7z;
+import pragma.filesystem;
+
+#undef CreateFile
 
 static std::string get_7z_binary_path()
 {
