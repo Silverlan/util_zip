@@ -7,6 +7,7 @@ module;
 #include <string>
 #include <iostream>
 #include <sharedutils/BS_thread_pool.hpp>
+#include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
 
 module util_zip;
