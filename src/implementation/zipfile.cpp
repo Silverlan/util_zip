@@ -3,13 +3,6 @@
 
 module;
 
-#include <cstring>
-#include <algorithm>
-#include <unordered_map>
-#include <condition_variable>
-#include <mutex>
-#include <vector>
-#include <functional>
 #include "definitions.hpp"
 
 module util_zip;

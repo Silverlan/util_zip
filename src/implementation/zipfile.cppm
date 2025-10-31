@@ -3,10 +3,6 @@
 
 module;
 
-#include <memory>
-#include <string>
-#include <vector>
-#include <functional>
 
 export module util_zip:zipfile;
 

@@ -3,10 +3,6 @@
 
 module;
 
-#include <memory>
-#include <string>
-#include <atomic>
-#include <unordered_map>
 #include <sharedutils/BS_thread_pool.hpp>
 #include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>

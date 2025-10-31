@@ -3,9 +3,6 @@
 
 module;
 
-#include <memory>
-#include <string>
-#include <unordered_map>
 
 // See https://github.com/getnamo/7zip-cpp
 #include <7zpp/7zpp.h>
