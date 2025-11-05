@@ -7,8 +7,8 @@ module;
 
 export module util_zip:zip_libzip;
 
-import :base_zip_file;
-import :enums;
+export import :base_zip_file;
+export import :enums;
 
 export namespace uzip {
 	class LibZipFile : public BaseZipFile {

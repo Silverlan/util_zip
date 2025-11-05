@@ -3,14 +3,14 @@
 
 module;
 
-#include <sharedutils/BS_thread_pool.hpp>
 #include <bit7z/bitarchivereader.hpp>
 #include <bit7z/bitarchivewriter.hpp>
 
 export module util_zip:zip_bit7z;
 
-import :base_zip_file;
-import :enums;
+export import :base_zip_file;
+export import :enums;
+export import pragma.util;
 
 export namespace uzip {
 	class Bit7zFile : public BaseZipFile {
@@ -33,7 +33,7 @@ export namespace uzip {
 		std::unique_ptr<bit7z::BitArchiveWriter> writer;
 
 		std::function<void(double)> m_progressCallback;
-		BS::thread_pool m_thread;
+		BS::light_thread_pool m_thread;
 		std::atomic<bool> m_cancelled = false;
 		std::unordered_map<std::string, std::string> m_normalizedNameToInternal;
 	};
