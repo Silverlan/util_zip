@@ -3,12 +3,9 @@
 
 module;
 
-#include <vector>
-#include <string>
-#include <cinttypes>
-#include <functional>
-
 export module util_zip:base_zip_file;
+
+export import std.compat;
 
 export namespace uzip {
 	class BaseZipFile {

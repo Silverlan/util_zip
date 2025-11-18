@@ -3,16 +3,12 @@
 
 module;
 
-#include <string>
-#include <memory>
-#include <condition_variable>
-#include <mutex>
 #include <7zpp/7zpp.h>
-#include <sharedutils/util_string.h>
 
 module util_zip;
 
 import :zip_7zpp;
+import pragma.string;
 
 static std::string program_name(bool bPost = false)
 {

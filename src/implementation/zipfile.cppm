@@ -3,12 +3,6 @@
 
 module;
 
-#include <memory>
-#include <string>
-#include <mathutil/umath.h>
-#include <vector>
-#include <functional>
-
 export module util_zip:zipfile;
 
 import :enums;

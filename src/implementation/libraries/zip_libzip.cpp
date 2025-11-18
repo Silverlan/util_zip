@@ -4,10 +4,6 @@
 module;
 
 #include <zip.h>
-#include <string>
-#include <memory>
-#include <cstring>
-#include <functional>
 
 module util_zip;
 

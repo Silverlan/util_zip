@@ -66,7 +66,6 @@ else()
     set(MODULE_EXCLUSION_FILTER "src/implementation/libraries/windows/*.cppm")
 endif()
 
-pr_add_headers(${PROJ_NAME} "include/")
 pr_add_sources(${PROJ_NAME} "src/" EXCLUDE "${SOURCE_EXCLUSION_FILTER}")
 pr_add_modules(${PROJ_NAME} "src/" EXCLUDE "${MODULE_EXCLUSION_FILTER}")
 
