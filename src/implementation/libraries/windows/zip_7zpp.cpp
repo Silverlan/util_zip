@@ -84,7 +84,7 @@ bool uzip::SevenZipFile::GetFileList(std::vector<std::string> &outFileList) cons
 	auto itemNames = extractor->GetItemsNames();
 	outFileList.reserve(itemNames.size());
 	for(auto &f : itemNames)
-		outFileList.push_back(ustring::wstring_to_string(f));
+		outFileList.push_back(pragma::string::wstring_to_string(f));
 	return true;
 }
 

@@ -21,11 +21,11 @@ static std::string get_7z_binary_path()
 #else
 	path = "lib/7z.so";
 #endif
-	filemanager::find_absolute_path(path, path);
+	pragma::fs::find_absolute_path(path, path);
 	return path;
 }
 
-static std::string get_normalized_path(const std::string &internalPath) { return util::Path::CreateFile(internalPath).GetString(); }
+static std::string get_normalized_path(const std::string &internalPath) { return pragma::util::Path::CreateFile(internalPath).GetString(); }
 
 uzip::Bit7zFile::Bit7zFile() : lib {get_7z_binary_path()}, m_thread {1} {}
 std::unique_ptr<uzip::BaseZipFile> uzip::Bit7zFile::Open(const std::string &fileName, std::string &outErr, OpenMode openMode)
@@ -165,7 +165,7 @@ bool uzip::Bit7zFile::ReadFile(const std::string &fileName, std::vector<uint8_t>
 		outErr = "Zip-archive has not been opened for reading!";
 		return false;
 	}
-	auto itInternal = m_normalizedNameToInternal.find(util::Path::CreateFile(fileName).GetString());
+	auto itInternal = m_normalizedNameToInternal.find(pragma::util::Path::CreateFile(fileName).GetString());
 	if(itInternal == m_normalizedNameToInternal.end()) {
 		outErr = "File not found!";
 		return false;

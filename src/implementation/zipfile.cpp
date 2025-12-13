@@ -20,7 +20,7 @@ std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const void *zipData, size_t s
 	auto baseZip = LibZipFile::Open(zipData, size);
 	if(!baseZip)
 		return nullptr;
-	return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));
+	return std::unique_ptr<ZIPFile>(new ZIPFile(std::move(baseZip)));
 }
 std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const std::string &filePath, std::string &outErr, OpenMode openMode)
 {
@@ -41,7 +41,7 @@ std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const std::string &filePath, 
 			auto baseZip = Bit7zFile::Open(filePath, outErr, openMode);
 			if(!baseZip)
 				return {};
-			return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));
+			return std::unique_ptr<ZIPFile>(new ZIPFile(std::move(baseZip)));
 #endif
 			break;
 		}
@@ -51,7 +51,7 @@ std::unique_ptr<uzip::ZIPFile> uzip::ZIPFile::Open(const std::string &filePath, 
 			auto baseZip = LibZipFile::Open(filePath, openMode);
 			if(!baseZip)
 				return {};
-			return std::unique_ptr<uzip::ZIPFile>(new uzip::ZIPFile(std::move(baseZip)));
+			return std::unique_ptr<ZIPFile>(new ZIPFile(std::move(baseZip)));
 #elif ZIP_WRITE_LIB == ZIP_LIB_7ZPP
 			auto baseZip = SevenZipFile::Open(filePath, openMode);
 			if(!baseZip)
