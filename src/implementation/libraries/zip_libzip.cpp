@@ -81,7 +81,7 @@ bool uzip::LibZipFile::ReadFile(const std::string &fileName, std::vector<uint8_t
 	if(!f) {
 		auto *err = zip_get_error(m_zip);
 		if(err)
-			outErr = std::to_string(err->zip_err);
+			outErr = pragma::util::to_string(err->zip_err);
 		return false;
 	}
 	outData.resize(st.size);
